@@ -1,5 +1,5 @@
  .u-section-1 {
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('images/vintage-frame-salon-tools-wooden-table-2-min1.jpg');
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('images/vintage-frame-salon-tools-wooden-table-2-min1.webp');
   background-position: 50% 50%, 50% 50%;
   background-repeat: no-repeat, no-repeat;
   background-size: cover, cover;
@@ -10,7 +10,7 @@
 }
 
 .u-section-1 .u-image-1 {
-  background-image: url("images/y554.jpg");
+  background-image: url("images/logo.png");
   height: 175px;
   width: 175px;
   background-position: 50% 50%;
