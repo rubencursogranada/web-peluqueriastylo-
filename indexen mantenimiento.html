@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitio en Mantenimiento</title>
+    <style>
+        /*
+        ******************************************************************
+        * ESTILOS ADAPTADOS AL NUEVO CSS Y AL LOGO "MARIPOSADIGITAL"
+        ******************************************************************
+        */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Color de acento azul basado en el logo de graffiti */
+        :root {
+            --accent-color: #053742; /* Azul oscuro/negro del logo */
+            --light-accent-color: #3e82b7; /* Un tono más claro para gradientes */
+            --text-color-primary: #FFFFFF;
+            --text-color-secondary: #cccccc;
+            --bg-dark: rgba(0, 0, 0, 0.75);
+            --bg-item: #4d4d4d;
+        }
+
+        body {
+            /* Fondo inspirado en .u-section-1: Imagen con superposición oscura */
+            font-family: -apple-system, BlinkMacMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #333333; /* Color de fallback */
+            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('images/vintage-frame-salon-tools-wooden-table-2-min1.webp'); /* Placeholder de imagen */
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .background-animation {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .circle:nth-child(1) { width: 80px; height: 80px; left: 10%; top: 20%; animation-delay: 0s; }
+        .circle:nth-child(2) { width: 120px; height: 120px; right: 15%; top: 40%; animation-delay: 2s; }
+        .circle:nth-child(3) { width: 60px; height: 60px; left: 20%; bottom: 20%; animation-delay: 4s; }
+        .circle:nth-child(4) { width: 100px; height: 100px; right: 25%; bottom: 30%; animation-delay: 6s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(180deg); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 40px;
+            background: var(--bg-dark);
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+            max-width: 600px;
+            width: 90%;
+            backdrop-filter: blur(5px);
+            animation: slideUp 0.8s ease-out;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Ocultamos la animación original de la mariposa */
+        .capybara-container { display: none; }
+        .capybara { display: none; }
+
+        .logo-container {
+            margin: 0 auto 10px;
+            width: 250px; /* Ajustado para el tamaño del logo */
+            height: auto;
+            max-width: 100%;
+        }
+
+        .logo-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            /* Filtro para asegurar que el logo se vea bien en fondo oscuro, si es necesario */
+            filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
+        }
+
+        .agency-name {
+            /* El nombre es ahora parte del logo, así que lo hacemos más sutil o lo ocultamos */
+            font-size: 0; /* Ocultamos el texto si el logo lo incluye */
+            margin-bottom: 0;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: var(--text-color-primary);
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-shadow: 2px 2px 24px rgba(0,0,0,0.65);
+        }
+
+        p {
+            font-size: 1.1em;
+            color: var(--text-color-secondary);
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .time-box {
+            /* Usamos el color de acento azul oscuro del logo */
+            background: var(--accent-color);
+            border-radius: 7px;
+            padding: 15px 15px;
+            min-width: 70px;
+            box-shadow: 0px 5px 10px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
+            border: 4px solid var(--light-accent-color); /* Borde con acento */
+        }
+
+        .time-box:hover {
+            transform: translateY(-3px);
+            background: var(--light-accent-color);
+        }
+
+        .time-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: var(--text-color-primary);
+            line-height: 1;
+            letter-spacing: 1px;
+        }
+
+        .time-label {
+            font-size: 0.75em;
+            color: var(--text-color-secondary);
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--bg-item);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 30px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            /* Gradiente con los colores del logo */
+            background: linear-gradient(90deg, var(--light-accent-color) 0%, var(--accent-color) 100%);
+            border-radius: 10px;
+            animation: progress 2s ease-in-out infinite;
+        }
+
+        @keyframes progress {
+            0% { width: 0%; }
+            50% { width: 70%; }
+            100% { width: 100%; }
+        }
+
+        .social-links {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--accent-color); /* Color de acento */
+            border: 1px solid var(--light-accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--text-color-primary);
+            font-weight: bold;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        .social-links a:hover {
+            transform: scale(1.1);
+            background: var(--light-accent-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
+            color: var(--text-color-primary);
+        }
+
+        .email {
+            color: var(--light-accent-color); /* Email resaltado con el color claro de acento */
+            text-decoration: underline;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .email:hover {
+            color: var(--text-color-primary);
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2em; }
+            p { font-size: 1em; }
+            .container { padding: 30px 20px; }
+            .time-box { min-width: 60px; padding: 10px; }
+            .time-value { font-size: 1.8em; }
+            .logo-container { width: 200px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
+
+    <div class="container">
+        <div class="logo-container">
+            <img src="logomdblanco.png" alt="Logo MariposaDigital" class="logo-image">
+        </div>
+
+        <div class="agency-name"></div>
+
+        <h1>Estamos en Mantenimiento</h1>
+
+        <p>
+            Estamos trabajando para mejorar tu experiencia.
+            Nuestro sitio volverá pronto con nuevas características increíbles.
+        </p>
+
+        <div class="countdown">
+            <div class="time-box">
+                <div class="time-value" id="days">00</div>
+                <div class="time-label">Días</div>
+            </div>
+            <div class="time-box">
+                <div class="time-value" id="hours">00</div>
+                <div class="time-label">Horas</div>
+            </div>
+            <div class="time-box">
+                <div class="time-value" id="minutes">00</div>
+                <div class="time-label">Minutos</div>
+            </div>
+            <div class="time-box">
+                <div class="time-value" id="seconds">00</div>
+                <div class="time-label">Segundos</div>
+            </div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+
+        <p>
+            ¿Necesitas contactarnos?<br>
+            <a href="mailto:contacto@tuempresa.com" class="email">contacto@tuempresa.com</a>
+        </p>
+
+        <div class="social-links">
+            <a href="#" title="Facebook">f</a>
+            <a href="#" title="Twitter">𝕏</a>
+            <a href="#" title="Instagram">📷</a>
+            <a href="#" title="LinkedIn">in</a>
+        </div>
+    </div>
+
+    <script>
+        // Establecer fecha objetivo (3 días desde ahora)
+        const targetDate = new Date();
+        targetDate.setDate(targetDate.getDate() + 3);
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+
+            if (distance < 0) {
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+            }
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
